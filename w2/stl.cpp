@@ -25,6 +25,7 @@ int main() {
 	}
 	cout << endl;
 	v.insert(v.begin(),2 , 1) ;
+	
 	for(auto it : v){
 		cout << (it) << " ";
 	}
