@@ -8,12 +8,9 @@ int main() {
 	v.push_back(1);
 	v.push_back(2);
 	v.emplace_back(3);
-	// cout << v;
-
 	vector<pair<int,int>> vec;
 	vec.push_back({1,2});
 	vec.emplace_back(3,4);
-	
 	for(vector<int>::iterator it = v.begin();it != v.end();it++){
 		cout << *(it) << " ";
 	}
