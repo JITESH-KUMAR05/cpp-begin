@@ -2,7 +2,9 @@
 using namespace std;
 
 int main(){
-    string s = "acdbbf";
+    string s = "acd bbf     ";
+    reverse(s.begin(),s.end());
+    cout <<  "Using Reverse " << endl <<  s << endl;
     stack<char>st;
     string rev;
     for(char ch:s){
