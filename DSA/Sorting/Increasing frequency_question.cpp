@@ -36,6 +36,10 @@ int main(){
                                 }
     }
         now we can take one vector and store all the values the freq times and then sort it 
+        only taking this will not solve so we need all the unique values and also the index when
+        they first apperared so we needed one more hash map
+        we took unique elements and then sorted according to the frequency if frequency is equal then
+        we are trying to solve with the first apprearence map
     */ 
    vector<int>unique;
    for(auto it:freq){
