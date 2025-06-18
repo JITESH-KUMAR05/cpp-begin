@@ -17,6 +17,7 @@ the current level by which we can check all the childer of the current level
 if children exist then we will add the children into the level vector and then
 add the level vector to the result vector after checking all the childrent on the current level 
 also one more note that initially we should add the root to the queue inorder algo to work properly
+now we have one variation that in the part two then we can just reverse at the end and then return 
 */
 
 void levelOrder(TreeNode *root){
