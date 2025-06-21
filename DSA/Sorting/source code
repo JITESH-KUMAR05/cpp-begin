@@ -1,0 +1,79 @@
+// Question 5
+
+// Correct Answer
+
+// Marks Scored: 10
+
+// Problem Statement:
+
+// Print the elements of an array in the decreasing frequency if 2 numbers have the same frequency then print the one which came first
+
+// Examples: 
+
+// Input:  arr[] = {2, 5, 2, 8, 5, 6, 8, 8}
+
+// Output: arr[] = {8, 8, 8, 2, 2, 5, 5, 6}
+
+//[{3,8},{2,0,2},{2,1,5},{1,6}]
+// unique vector,frequency map 
+//unique vector {2,5,8,6}
+//vector pair {(freq,element)}
+
+
+// Constraint:
+
+// 1 <= N <= 10000
+
+// -10000 <= arr[i] <= 10000
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void sort_array(arr){
+    unordered_map<int,int>freq; //stores the frequency of elements 
+    vector<pair<int,int>>uniq;  //tells us for a particular element when did it appear first
+    for(int i=0;i<arr.size();i++){
+        if(freq[arr[i]]==0){
+            uniq.push_back({arr[i],i});
+            
+        }
+        freq[arr[i]]++;
+    }
+    vector<vector<int>>temp;   // [{frequency of element,index when it first appeared,value of element}]
+    for(int i=0;i<uniq.size();i++){
+        temp.push_back({freq[uniq[i].first],-uniq[i].second,uniq[i].first});
+    }
+    sort(temp.begin(),temp.end()); //this causes the lower frequency elements at the start 
+    reverse(temp.begin(),temp.end());  //higher freq elements at the start as required 
+    for(int i=0;i<temp.size();i++){
+        int frequency_count=temp[i][0];
+        int value=temp[i][2];
+        for(int j=0;j<frequency_count;j++){
+            cout<<value<<" ";
+        }
+    }
+    return;
+}
+typedef long long ll;
+int main()
+{
+   sort_array(arr);
+    return 0;
+}
+// Input:  arr[] = {2, 5, 2, 8, 5, 6, 8, 8}
+
+// Output: arr[] = {8, 8, 8, 2, 2, 5, 5, 6}
+
+
+//temp here would become 
+//[{3,3,8}, {2,1,5}, {2,0,2}, {1,5,6}]
+
+// 8 8 8 5 5 2 2 ...
+//but we want 
+//8 8 8 2 2 5 5 since 2 appeared first 
+
+//after storing the second index as negative(index) we get 
+//[{3,-3,8}, {2,0,2}, {2,-1,5}, {1,-5,6}]
+
+
+
