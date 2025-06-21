@@ -37,3 +37,35 @@ int main(){
 	cout << res.size();
 	return 0;
 }
+
+
+/*
+Nikhils approach
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(int i,vector<vector<vector<int>>>&ans,vector<vector<int>> temp,int n){
+    if(i>n){
+        ans.push_back(temp);
+        return ;
+    }
+    for(int j=0;j<temp.size();j++){
+        temp[j].push_back(i);
+        solve(i+1,ans,temp,n);
+    }
+    temp.push_back({i});
+    solve(i+1,ans,temp,n);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<vector<vector<int>>> ans;
+    vector<vector<int>> temp;
+    solve(1,ans,temp,n);
+    int c ;
+    c = ans.size();
+    cout << c;
+}
+*/
