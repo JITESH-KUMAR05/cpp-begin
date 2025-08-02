@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\w1",
+    "\\DSA",
+    "\\DSA\\Biweekly162",
     "\\w2"
   ],
-  "SelectedNode": "\\w2\\stl.cpp",
+  "SelectedNode": "\\DSA\\Biweekly162\\ealiestfinish.cpp",
   "PreviewInSolutionExplorer": false
 }
