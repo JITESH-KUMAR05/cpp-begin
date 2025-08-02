@@ -69,4 +69,13 @@
 // 1 <= n, m <= 5 * 104
 // landStartTime.length == landDuration.length == n
 // waterStartTime.length == waterDuration.length == m
-// 1 <= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] <= 105©leetcode
+// 1 <= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] <= 105
+
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    int earliestFinishTime(vector<int>& landStartTime, vector<int>& landDuration, vector<int>& waterStartTime, vector<int>& waterDuration) {
+        
+    }
+};
