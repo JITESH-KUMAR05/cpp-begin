@@ -63,6 +63,14 @@ using namespace std
             if (parent != -1) {
                 adj[cur->val].push_back(parent);
             }
+            if(cur->left){
+                adj[cur->val].push_back(cur->left->val);
+            }
+            if(cur->right){
+                adj[cur->val].push_back(cur->right->val);
+            }
+            makeGraph(adj,cur->val,cur->left);
+            makeGraph(adj,cur->val,cur->right);
         }
         int amountOfTime(TreeNode* root, int start) {
             unordered_map<int, vector<int>>adj;
