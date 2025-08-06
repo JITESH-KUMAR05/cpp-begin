@@ -62,6 +62,7 @@ After sorting
 //here as the constraints are small this brute force can work
 // if the constraint is big then we need to go for segment trees
 // but for now this will also work if you want to do this with brute force
+// with two nested for loops then it will also work in this case
 #include<bits/stdc++.h>
 using namespace std;
 class Solution {
