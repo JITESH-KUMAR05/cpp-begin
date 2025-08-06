@@ -60,6 +60,7 @@ After sorting
 0 0 1 --> 1
 */
 //here as the constraints are small this brute force can work
+// if the constraint is big then we need to go for segment trees
 #include<bits/stdc++.h>
 using namespace std;
 class Solution {
