@@ -59,6 +59,7 @@ After sorting
 3 4 5 
 0 0 1 --> 1
 */
+//here as the constraints are small this brute force can work
 #include<bits/stdc++.h>
 using namespace std;
 class Solution {
