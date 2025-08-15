@@ -76,8 +76,38 @@ public:
                 return {false, -1, -1, -1};
             }
         }
+        if(node->right==nullptr){
+            vector<long long>lt=checkBST(node->left,ans);
+            if(node->val >= lt[2]){
+                long long sum = node->val+lt[3];
+                ans=max(ans,sum);
+                return {true,lt[1],node->val,sum};
+            }else{
+                return {false,-1,-1,-1};
+            }
+        }
+
+        if(node->left && node->right){
+            vector<long long>lt=checkBST(node->left,ans);
+            vector<long long>rt=checkBST(node->right,ans);
+            if(lt[0]==false || rt[0]==false){
+                return {false,-1,-1,-1};
+            }
+            if(node->val >= lt[2] && node->val <= rt[1]){
+                long long sum = lt[3] + rt[3] + node->val;
+                ans = max(ans,sum);
+                return {true,lt[1],rt[2],sum};
+            }
+            else{
+                return {false,-1,-1,-1};
+            }
+        }
+        return {false,-1,-1,-1};
     }
     int maxSumBST(TreeNode *root)
     {
+        long long min = -1e9;
+        checkBST(root,min);
+        return min;
     }
 };
