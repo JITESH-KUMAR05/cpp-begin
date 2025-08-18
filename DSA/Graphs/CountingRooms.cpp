@@ -54,5 +54,5 @@ int main(){
         }
     }
     cout << c ;
-    return c;
+    return 0;
 }
