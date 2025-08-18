@@ -41,13 +41,64 @@
 #include <iostream>
 #include<bits/stdc++.h>
 using namespace std;
-
+vector<int> bfs(int s,vector<pair<int,int>>&edges,int n){
+    unordered_map<int, vector<int>>adj;
+    for(auto &temp:edges){
+        int u=temp.first;
+        int v=temp.second;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+        // for(auto &val:temp){
+        //     cout << val << " ";
+        // }
+        // cout << endl;
+    }
+    queue<int>q;
+    vector<int>vis(n+1);
+    q.push(s);
+    vis[s]=1;
+    vector<int>dist(n+1,0);
+    dist[s]=0;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        for(auto& neg:adj[node]){
+            if(!vis[neg]){
+                dist[neg]+=(dist[node]+6);
+                vis[neg]=1;
+                q.push(neg);
+            }
+        }
+    }
+    vector<int>ans;
+    for(int i=0;i<dist.size();i++){
+        if(i==0 || i==s) continue;
+        if(dist[i]==0) dist[i]=-1;
+        ans.push_back(dist[i]);
+    }
+    return ans;
+}
 int main(){
 	// cout << "Hello World!";
     int q;
     cin >> q;
     while(q--){
-        
+        int n,e;
+        cin >> n >> e;
+        vector<pair<int,int>>edges(e);
+        for(int i=0;i<e;i++){
+            int u,v;
+            cin >> u >> v;
+            edges[i].first=u;
+            edges[i].second=v;
+        }
+        int s;
+        cin >> s;
+        vector<int>temp = bfs(s,edges,n);
+        for(int i=0;i<temp.size();i++){
+            cout << temp[i] << " ";
+        }
+        cout << endl;
     }
 	return 0;
 }
