@@ -55,17 +55,17 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void bfs(int s,vector<int>&cost,unordered_map<int,vector<pair<int,int>>>&adj){
-        queue<pair<int,int>>q;
-        q.push({s,0});
+void bfs(int s,vector<int>&cost,vector<vector<int>> &adj){
+        queue<int>q;
+        q.push(s);
+        cost[s]=0;
         while(!q.empty()){
-            pair<int,int> node=q.front();
+            int node=q.front();
             q.pop();
-            for(auto pr:adj[node.first]){
-                int curcost=node.second + pr.second;
-                if(curcost < cost[pr.first]){
-                    cost[pr.first]=curcost;
-                    q.push({pr.first,curcost});
+            for(int neg:adj[node]){
+                if(cost[neg]==1e9){
+                    cost[neg] = cost[node] + 1;
+                    q.push(neg);
                 }
             }
         }
@@ -77,21 +77,31 @@ int main(){
 	while(t--){
 		int n,m;
 		cin >> n >> m;
-		unordered_map<int,vector<pair<int,int>>>adj;
-		for(int i=1;i<=m;i++){
-			int u,v;
-			cin >> u >> v ;
-			adj[u].push_back({v,1});
-		}
-		int s;
-		cin >> s;
-		vector<int>cost(n+1,1e9);
-		cost[s]=0;
-		bfs(s,cost,adj);
-		for(int i=1;i<=n;i++){
+		vector<vector<int>> adj(n+1);
+        set<pair<int,int>> mainRoads;
+        for(int i=0;i<m;i++){
+            int u,v;
+            cin >> u >> v;
+            mainRoads.insert({u,v});
+            mainRoads.insert({v,u});
+        }
+        for(int u=1;u<=n;u++){
+            for(int v=1;v<=n;v++){
+                if(u!=v && mainRoads.find({u,v})==mainRoads.end()){
+                    adj[u].push_back(v);
+                }
+            }
+        }
+        int s;
+        cin >> s;
+        vector<int> cost(n + 1, 1e9);
+        bfs(s, cost, adj);
+        vector<int>cost(n+1,1e9);
+        for(int i=1;i<=n;i++){
             if(i==s) continue;
-			cout << cost[i] << " ";
-		}
-	}
+            cout << cost[i] << " " ;
+        }
+        cout << endl;
 	return 0;
+}
 }
