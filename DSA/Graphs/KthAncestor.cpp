@@ -71,3 +71,39 @@ int main(){
     }
 	return 0;
 }
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+
+    // Store the boss of each employee
+    vector<int> bosses(n + 1);
+    bosses[1] = 1; // General director has no boss (points to itself)
+    for (int i = 2; i <= n; i++) {
+        cin >> bosses[i];
+    }
+
+    while (q--) {
+        int node, k;
+        cin >> node >> k;
+
+        while (k > 0) {
+            if (node == bosses[node]) { // Reached the general director
+                cout << -1 << endl;
+                break;
+            }
+            node = bosses[node]; // Move up one level
+            k--;
+        }
+
+        if (k == 0) { // Successfully found the boss k levels higher
+            cout << node << endl;
+        }
+    }
+
+    return 0;
+}
