@@ -96,12 +96,11 @@ int main(){
         cin >> s;
         vector<int> cost(n + 1, 1e9);
         bfs(s, cost, adj);
-        vector<int>cost(n+1,1e9);
         for(int i=1;i<=n;i++){
             if(i==s) continue;
             cout << cost[i] << " " ;
         }
         cout << endl;
+    }
 	return 0;
-}
 }

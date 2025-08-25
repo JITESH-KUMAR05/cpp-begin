@@ -62,6 +62,7 @@
     "unordered_set": "cpp",
     "string_view": "cpp",
     "flat_map": "cpp",
-    "flat_set": "cpp"
+    "flat_set": "cpp",
+    "ostream": "cpp"
   }
 }
