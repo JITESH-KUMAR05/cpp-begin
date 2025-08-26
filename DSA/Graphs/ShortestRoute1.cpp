@@ -26,20 +26,37 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// void dijkstra(int src,unordered_map<int,vector<pair<int,int>>>&adj,vector<long long>&cost){
+//     priority_queue<pair<long long ,int>>pq;
+//     pq.push({0,src});
+//     cost[src]=0;
+//     while(!pq.empty()){
+//         auto [curcost ,u] = pq.top();
+//         curcost *= (-1);
+//         pq.pop();
+//         if(curcost > cost[u]) continue;
+//         for(auto &[v,w]:adj[u]){
+//             long long newcost = cost[u] + w;
+//             if(newcost < cost[v]){
+//                 cost[v] = newcost;
+//                 pq.push({-newcost,v});
+//             }
+//         }
+//     }
+// }
 void dijkstra(int src,unordered_map<int,vector<pair<int,int>>>&adj,vector<long long>&cost){
-    priority_queue<pair<long long ,int>>pq;
+    priority_queue<pair<long long ,int>,vector<pair<long long,int>>,greater<pair<long long,int>>>pq;
     pq.push({0,src});
     cost[src]=0;
     while(!pq.empty()){
         auto [curcost ,u] = pq.top();
-        curcost *= (-1);
         pq.pop();
         if(curcost > cost[u]) continue;
         for(auto &[v,w]:adj[u]){
             long long newcost = cost[u] + w;
             if(newcost < cost[v]){
                 cost[v] = newcost;
-                pq.push({-newcost,v});
+                pq.push({newcost,v});
             }
         }
     }
