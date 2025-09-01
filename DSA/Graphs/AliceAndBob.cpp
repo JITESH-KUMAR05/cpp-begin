@@ -106,3 +106,5 @@ public:
         return c;;
     }
 };
+
+// Refer to Remove maximum edges in the same folder for the Class Solution
