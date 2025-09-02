@@ -31,27 +31,81 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+// This will give TLE and MLE
+
+// class Solution {
+// public:
+//     double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
+//         int n = classes.size();
+//         vector<double>PR(n);
+//         for(int i=0;i<n;i++){
+//             double ratio = (double)classes[i][0]/classes[i][1];
+//             PR[i]=ratio;
+//         }
+
+//         while(extraStudents--){
+
+//             vector<double>updatedPR(n);
+//             for(int i=0;i<n;i++){
+//                 double ratio=(double)(classes[i][0]+1)/(classes[i][1]+1);
+//                 updatedPR[i]=ratio;
+//             }
+
+//             double maxdiff=0.0;
+//             int maxdiffId=0;
+//             for(int i=0;i<n;i++){
+//                 double diff = abs(PR[i]-updatedPR[i]);
+//                 if(diff>maxdiff){
+//                     maxdiff=diff;
+//                     maxdiffId=i;
+//                 }
+//             }
+//             PR[maxdiffId]=updatedPR[maxdiffId];
+//             classes[maxdiffId][0]++;
+//             classes[maxdiffId][1]++;
+//         }
+//         double avg = 0.0;
+//         for(int i=0;i<n;i++){
+//             avg += (double)classes[i][0]/classes[i][1];
+//         }
+//         avg = avg / n;
+//         return avg;
+//     }
+// };
+
 class Solution {
 public:
+    #define P pair<double, int>
     double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
         int n = classes.size();
-        vector<int>prefixNum(n);
-        vector<int>prefixDen(n);
-        double ans = (double)(classes[0][0] / classes[0][1]);
-        prefixNum[0]=classes[0][0];
-        prefixDen[0]=classes[0][1];
-        for(int i=1;i<n;i++){
-            ans += (double)(classes[i][0] / classes[i][1]);
-            prefixNum[i]=prefixNum[i-1]+classes[i][0];
-            prefixDen[i]=prefixDen[i-1]+classes[i][1];
-        }
-        double maxi = ans;
+        priority_queue<P> pq;
+
         for(int i=0;i<n;i++){
-            ans -= (double)(prefixNum[i] / prefixDen[i]);
-            double newpass = (double)(classes[i][0] + extraStudents) / (classes[i][1] + extraStudents);
-            ans += newpass;
-            maxi = max(maxi, ans);
+            double currentratio = (double)classes[i][0]/classes[i][1];
+            double newratio = (double)(classes[i][0]+1)/(classes[i][1]+1);
+            double diff = abs(newratio - currentratio);
+            pq.push({diff,i});
         }
-        return maxi/n;
+        while(extraStudents--){
+            auto curr = pq.top();
+            pq.pop();
+
+            double diff = curr.first;
+            double idx = curr.second;
+
+            classes[idx][0]++;
+            classes[idx][1]++;
+
+            double currentratio = (double)classes[idx][0]/classes[idx][1];
+            double newratio = (double)(classes[idx][0]+1)/(classes[idx][1]+1);
+            double newdiff = abs(newratio-currentratio);
+
+            pq.push({newdiff,idx});
+        }
+        double res=0.0;
+        for(int i=0;i<n;i++){
+            res += (double)classes[i][0]/classes[i][1];
+        }
+        return res/n;
     }
 };
