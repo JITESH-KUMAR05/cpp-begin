@@ -37,7 +37,7 @@ public:
         int n = classes.size();
         vector<int>prefixNum(n);
         vector<int>prefixDen(n);
-        double ans = (double)(classes[i][0] / classes[i][1]);
+        double ans = (double)(classes[0][0] / classes[0][1]);
         prefixNum[0]=classes[0][0];
         prefixDen[0]=classes[0][1];
         for(int i=1;i<n;i++){
@@ -45,5 +45,13 @@ public:
             prefixNum[i]=prefixNum[i-1]+classes[i][0];
             prefixDen[i]=prefixDen[i-1]+classes[i][1];
         }
+        double maxi = ans;
+        for(int i=0;i<n;i++){
+            ans -= (double)(prefixNum[i] / prefixDen[i]);
+            double newpass = (double)(classes[i][0] + extraStudents) / (classes[i][1] + extraStudents);
+            ans += newpass;
+            maxi = max(maxi, ans);
+        }
+        return maxi/n;
     }
 };
