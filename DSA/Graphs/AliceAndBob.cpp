@@ -50,19 +50,23 @@ using namespace std;
 
 class Solution {
 public:
-    int findleader(int node,int tp,vector<int>&AP,vector<int>&BP){
-        if(tp==1){
-
-        }
-        else if(tp==2){
-
-        }
-        else if(tp==3){
-
-        }
+    int findleader(int node,vector<int>&parent){
+        if(parent[node]==node) return node;
+        return parent[node]=findleader(parent[node],parent);
     }
-    void dounion(int u,int v,int lu,int lv,vector<int>&AP,vector<int>&BP,vector<int>&Asz,vector<int>&Bsz,int tp){
+    bool dounion(int u,int v,vector<int>&parent,vector<int>&sz){
+        int lu=findleader(u,parent);
+        int lv=findleader(v,parent);
         
+        if(lu==lv) return false;
+        if(sz[lu]>sz[lv]){
+            sz[lv]+=sz[lv];
+            parent[lv]=lu;
+        }else{
+            sz[lu]+=sz[lv];
+            parent[lu]=lv;
+        }
+        return true;
     }
     int maxNumEdgesToRemove(int n, vector<vector<int>>& edges) {
         vector<int>AP(n+1);
@@ -73,37 +77,50 @@ public:
             AP[i]=BP[i]=i;
             Asz[i]=Bsz[i]=1;
         }
-        int c=0;
-        vector<vector<int>>commonEdges;
-        vector<vector<int>>AliceEdges;
-        vector<vector<int>>BobEdges;
-        int ini=edges.size();
-        for(int i=0;i<ini;i++){
-            int tp=edges[i][0];
-            int u=edges[i][1];
-            int v=edges[i][2];
-            if(tp==1){
-                AliceEdges.push_back({tp,u,v});
-            }else if(tp==2){
-                BobEdges.push_back({tp,u,v});
-            }else if(tp==3){
-                commonEdges.push_back({tp,u,v});
+        int edges_used=0;
+        int noc_alice=n;
+        int noc_bob=n;
+        
+        for(auto &edge:edges){
+            if(edge[0]==3){
+                bool bob_used=dounion(edge[1],edge[2],BP,Bsz);
+                bool alice_used=dounion(edge[1],edge[2],AP,Asz);
+
+                if(alice_used || bob_used) {
+                    edges_used++;
+                    noc_alice--;
+                    noc_bob--;
+                }
             }
         }
-        // first let me prioratise the common edge
-        for(int i=0;i<commonEdges.size();i++){
-            int tp=commonEdges[i][0];
-            int u=commonEdges[i][1];
-            int v=commonEdges[i][2];
-            int lu=findleader(u,tp,AP,BP);
-            int lv=findleader(v,tp,AP,BP);
-            if(lu==lv) continue;
-            dounion(u,v,lu,lv,AP,BP,Asz,Bsz,tp);
-            c++;
+
+        for(auto &edge:edges){
+            if(edge[0]==2){
+                bool bob_used=dounion(edge[1],edge[2],BP,Bsz);
+                // bool alice_used=dounion(edge[1],edge[2],AP,Asz);
+
+                if(bob_used) {
+                    edges_used++;
+                    noc_bob--;
+                }
+            }
+        }
+        for(auto &edge:edges){
+            if(edge[0]==3){
+                // bool bob_used=dounion(edge[1],edge[2],BP,Bsz);
+                bool alice_used=dounion(edge[1],edge[2],AP,Asz);
+
+                if(alice_used) {
+                    edges_used++;
+                    noc_alice--;
+                }
+            }
         }
 
-        cout << c;
-        return c;;
+        if(noc_alice==1 && noc_bob==1){
+            return edges.size()-edges_used;
+        }
+        return -1;
     }
 };
 
