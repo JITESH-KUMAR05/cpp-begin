@@ -38,3 +38,45 @@
 
 #include<bits/stdc++.h>
 using namespace std;
+
+class Solution {
+public:
+    int minimumTeachings(int n, vector<vector<int>>& languages, vector<vector<int>>& friendships) {
+        int users=languages.size();
+
+        set<int>sadusers;
+        int frsize=friendships.size();
+        for(int i=0;i<frsize;i++){
+            int u=friendships[i][0]-1;
+            int v=friendships[i][1]-1;
+            bool c=false;
+            set<int>ulang;
+            for(int j=0;j<languages[u].size();j++){
+                ulang.insert(languages[u][j]);
+            }
+            for(int j=0;j<languages[v].size();j++){
+                if(ulang.find(languages[v][j])!=ulang.end()){
+                    c=true;
+                    break;
+                }
+            }
+            if(c==false){
+                sadusers.insert(u);
+                sadusers.insert(v);
+            }
+        }
+
+        unordered_map<int,int>freq;
+        int maxfre=0;
+        for(auto it:sadusers){
+            for(auto lang:languages[it]){
+                freq[lang]++;
+                if(freq[lang] > maxfre){
+                    maxfre=freq[lang];
+                }
+            }
+        }
+
+        return sadusers.size() - maxfre;
+    }
+};
