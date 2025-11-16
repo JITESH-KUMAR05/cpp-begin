@@ -44,7 +44,10 @@ void merge(vector<int>&arr,int l,int mid ,int r){
         k++;
     }
 }
-
+// this process is going to take the time complexity of n log n 
+// n because the merge function runs the loop for n length of the array
+// log n because the levels are in log n for example if n or the length of array is 8 then we will have 3 levels 
+// which is log 8 base 2 
 void mergeSort(vector<int>&arr,int l,int r){
     if(l>=r) return;
     int mid = l + (r-l)/2;
