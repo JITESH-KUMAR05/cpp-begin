@@ -52,7 +52,7 @@
 
 #include<bits/stdc++.h>
 #include<string.h>
-
+// this code is accepted 
 class Solution {
 public:
     long long minCost(string s, vector<int>& cost) {
