@@ -51,7 +51,7 @@
 // s consists of lowercase English letters.
 
 #include<bits/stdc++.h>
-#include<string.h>
+using namespace std;
 // this code is accepted 
 class Solution {
 public:
