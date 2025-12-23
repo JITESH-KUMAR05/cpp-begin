@@ -70,10 +70,67 @@ using namespace std;
 */
 
 // Let's thinking about something different 
+/*
+    now let's think in this situation that 
+    if we are sorting the data with respect to the end time 
+    then we will be having the sorted data like this 
+    [1,4,6]
+    [1,10,10]
+    [5,10,6]
+*/
 
 class Solution {
 public:
     int maxTwoEvents(vector<vector<int>>& events) {
+        int n = events.size();
+        vector<vector<int>>sorterdEvents;
+        for(int i=0;i<n;i++){
+            int st = events[i][0];
+            int ed = events[i][1];
+            int val = events[i][2];
+            sorterdEvents.push_back({ed,st,val});
+        }
+
+        sort(sorterdEvents.begin(),sorterdEvents.end());
+
+        vector<int>maxValues(n);
+        maxValues[0] = sorterdEvents[0][2];
+
+        for(int i=1;i<n;i++){
+            maxValues[i] = max(maxValues[i-1],sorterdEvents[i][2]);
+        }
+
+        int globalMax = 0;
         
+
+        for(int i=0;i<n;i++){
+            int currSt = sorterdEvents[i][1];
+            int currVal = sorterdEvents[i][2];
+
+            globalMax = max(globalMax,currVal);
+
+
+            int left = 0;
+            int right = i-1;
+            int bestId = -1;
+
+            while(left <= right){
+                int mid = left + (right-left)/2;
+
+                if(sorterdEvents[mid][0] < currSt){
+                    bestId = mid;
+                    left = mid+1;
+                }
+                else{
+                    right = mid-1;
+                }
+            }
+
+            if(bestId != -1){
+                globalMax = max(globalMax,currVal + maxValues[bestId]);
+            }
+        }
+
+        return globalMax;
     }
 };
