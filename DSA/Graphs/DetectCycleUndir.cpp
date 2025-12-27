@@ -13,6 +13,26 @@ bool dfs(int u,int p,unordered_map<int,vector<int>>&adj,vector<bool>&vis){
     return false;
 }
 
+bool bfs(int u,vector<vector<int>>& adj,vector<bool>&visited){
+        queue<pair<int,int>>q;
+        q.push({u,-1});
+        visited[u]=true;
+        while(!q.empty()){
+            pair<int,int>p=q.front();
+            q.pop();
+            int source=p.first;
+            int parent=p.second;
+            for(auto &v:adj[source]){
+                if(!visited[v]){
+                    q.push({v,source});
+                    visited[v]=true;
+                }else if(v!=parent){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 class Solution {
   public:
     bool isCycle(int V, vector<vector<int>>& edges) {
