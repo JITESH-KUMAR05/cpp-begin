@@ -19,7 +19,7 @@ class Solution {
         // code here
         unordered_map<int,vector<int>>adj;
         for(auto edge:edges){
-            int u = edge[0];
+            int u = edge[0];To
             int v = edge[1];
             adj[u].push_back(v);
 
