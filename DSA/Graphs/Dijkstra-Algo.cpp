@@ -25,10 +25,23 @@ class Solution {
             auto &it  = *st.begin();
             int node = it.second;
             int d = it.first;
+            st.erase(it);
 
-            
+            for(auto& v:adj[node]){
+                int neg = v.first;
+                int dist = v.second;
+
+                if(d+dist < res[neg]){
+                    if(res[neg] != INT_MAX){
+                        st.erase({res[neg],neg});
+                    }
+                    res[neg] = d+dist;
+                    st.insert({res[neg],neg});
+                }
+            }
         }
 
+        return res;
         
     }
 };
