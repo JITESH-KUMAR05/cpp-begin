@@ -16,7 +16,19 @@ class Solution {
         }
         set<pair<int,int>>st;
 
-        
+        vector<int>res(V,INT_MAX);
+
+        res[src]=0;
+        st.insert({0,src});
+
+        while(!st.empty()){
+            auto &it  = *st.begin();
+            int node = it.second;
+            int d = it.first;
+
+            
+        }
+
         
     }
 };
