@@ -21,11 +21,11 @@ int main(){
     cout << head->next->val;
     cout << endl;
     head->next->next = new Node(12);
-    cout << head->next->val;
+    cout << head->next->next->val;
     cout << endl;
     Node * temp = head;
     while(temp != nullptr){
-        cout  << temp->val;
+        cout  << temp->val<<"-->";
         temp=temp->next;
     }
     cout << endl;
@@ -41,7 +41,7 @@ int main(){
     }
     temp = head;
     while(temp != nullptr){
-        cout  << temp->val;
+        cout  << temp->val<<"-->";
         temp=temp->next;
     }
     cout << endl;
